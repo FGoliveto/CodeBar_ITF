@@ -33,18 +33,18 @@ class CodigoBarraABitmap {
         } catch (IllegalArgumentException iae) {
             return null;
         }
-        int width = resultado.getWidth();
-        int height = resultado.getHeight();
-        int[] pixels = new int[width * height];
-        for (int y = 0; y < height; y++) {
-            int offset = y * width;
-            for (int x = 0; x < width; x++) {
-                pixels[offset + x] = resultado.get(x, y) ? BLACK : WHITE;
+        int anchoBitmap = resultado.getWidth();
+        int altoBitmap = resultado.getHeight();
+        int[] pixeles = new int[anchoBitmap * altoBitmap];
+        for (int y = 0; y < altoBitmap; y++) {
+            int pos = y * anchoBitmap;
+            for (int x = 0; x < anchoBitmap; x++) {
+                pixeles[pos + x] = resultado.get(x, y) ? BLACK : WHITE;
             }
         }
-        Bitmap imagen = Bitmap.createBitmap(width, height,
+        Bitmap imagen = Bitmap.createBitmap(anchoBitmap, altoBitmap,
                 Bitmap.Config.ARGB_8888);
-        imagen.setPixels(pixels, 0, width, 0, 0, width, height);
+        imagen.setPixels(pixeles, 0, anchoBitmap, 0, 0, anchoBitmap, altoBitmap);
         return imagen;
     }
     private String guessAppropriateEncoding(CharSequence contenido) {

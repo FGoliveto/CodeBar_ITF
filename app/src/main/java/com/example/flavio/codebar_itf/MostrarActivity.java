@@ -90,7 +90,7 @@ public class MostrarActivity extends Activity {
             numeros = codigoNumericoABitmap.textoABitmap(codigoEnNumero);
             Log.d("TAG","bitmap:"+codigoDeBarras);
             Log.d("TAG","texto:"+numeros);
-            completo = new CombinaciondeBitmaps().combinar(codigoDeBarras,numeros);
+            completo = new CombinacionDeBitmaps().combinar(codigoDeBarras,numeros);
             if (imagen != null) {
                 imagen.setImageBitmap(completo);
                 generado=true;
@@ -121,8 +121,8 @@ public class MostrarActivity extends Activity {
                         if (out != null) {
                             out.close();
                         }
-                    } catch (Exception e) {
-                        System.err.println(e.toString());
+                    } catch (Exception ignored) {
+                        Log.d("TAG","No se pudo guardar la imagen");
                     }
                     Intent compartirIntent = new Intent(android.content.Intent.ACTION_SEND);
                     compartirIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -147,26 +147,25 @@ public class MostrarActivity extends Activity {
                                 public void onClick(DialogInterface dialog, int whichButton) {
                                     String titulo = edittext.getText().toString();
                                     if (titulo.length()>0 && titulo.length()<51 && generado){
-                                        OutputStream Out = null;
+                                        OutputStream out = null;
                                         Log.d("TAG","Entro al boton guardar");
                                         try {
-                                            File camino = new File(Environment.getExternalStorageDirectory()
-                                                    + File.separator + "Pictures" + File.separator);
+                                            File camino = new File(Environment.getExternalStorageDirectory() + "/Pictures/");
                                             lugar = new File(camino, titulo+".jpg");
                                             Log.d("TAG","direccion"+camino);
-                                            Out = new FileOutputStream(lugar);
+                                            out = new FileOutputStream(lugar);
                                         } catch (Exception e) {
                                             Toast.makeText(context, "Ocurrio un error, intente más tarde",
                                                     Toast.LENGTH_SHORT).show();
                                         }
                                         try {
-                                            completo.compress(Bitmap.CompressFormat.PNG, 100, Out);
+                                            completo.compress(Bitmap.CompressFormat.PNG, 100, out);
                                             Log.d("TAG","Se guardo la imagen");
-                                            if (Out != null) {
-                                                Out.flush();
+                                            if (out != null) {
+                                                out.flush();
                                             }
-                                            if (Out != null) {
-                                                Out.close();
+                                            if (out != null) {
+                                                out.close();
                                                 MediaScannerConnection.scanFile(context, new String[] { lugar.getPath() }, new String[] { titulo+".jpg" }, null);
                                                 Intent guardado = new Intent(context,InicioActivity.class);
                                                 guardado.putExtra("guardado",true);
@@ -202,7 +201,7 @@ public class MostrarActivity extends Activity {
         {
             Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
             if (cursor != null && cursor.moveToFirst()) {
-                int indiceColumna = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);//Instead of "MediaStore.Images.Media.DATA" can be used "_data"
+                int indiceColumna = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
                 ubicacion = Uri.parse(cursor.getString(indiceColumna));
                 Log.d("TAG",ubicacion.toString());
             }

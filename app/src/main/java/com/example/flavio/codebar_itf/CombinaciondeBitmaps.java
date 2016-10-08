@@ -4,7 +4,7 @@ package com.example.flavio.codebar_itf;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
-class CombinaciondeBitmaps {
+class CombinacionDeBitmaps {
 
     Bitmap combinar(Bitmap b1, Bitmap b2) {
         Bitmap bitmapFinal;

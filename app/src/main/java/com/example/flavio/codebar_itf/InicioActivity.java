@@ -19,8 +19,8 @@ public class InicioActivity extends Activity{
             Toast.makeText(getApplicationContext(),"El codigo se encuentra guardado en la carpeta Imagenes",Toast.LENGTH_LONG).show();
         }
         Typeface type = Typeface.createFromAsset(getAssets(),"calibriz.ttf");
-        TextView port = (TextView)findViewById(R.id.portada);
-        port.setTypeface(type);
+        TextView portada = (TextView)findViewById(R.id.portada);
+        portada.setTypeface(type);
         findViewById(R.id.comenzar).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
