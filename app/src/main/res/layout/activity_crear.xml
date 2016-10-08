@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".CrearActivity"
+    android:padding="5dp">
+
+    <TextView
+        android:id="@+id/tcuit"
+        android:text="Número de CUIT"
+        style="@style/instruccion"/>
+    <EditText
+        android:maxLength="11"
+        android:id="@+id/cuit"
+        android:hint="11 digitos"
+        style="@style/datos"/>
+    <TextView
+        android:id="@+id/tipoF"
+        android:text="Seleccionar tipo de formulario"
+        style="@style/instruccion"/>
+    <Spinner
+        android:id="@+id/spinner"
+        style="@style/spinner">
+    </Spinner>
+    <TextView
+        android:id="@+id/tpv"
+        android:text="Punto de venta"
+        style="@style/instruccion"/>
+    <EditText
+        android:maxLength="4"
+        android:id="@+id/pv"
+        android:hint="4 digitos"
+        style="@style/datos"/>
+    <TextView
+        android:id="@+id/tcai"
+        android:text="Número de CAI"
+        style="@style/instruccion"/>
+    <EditText
+        android:maxLength="14"
+        android:id="@+id/cai"
+        android:hint="14 digitos"
+        style="@style/datos"/>
+    <TextView
+        android:id="@+id/tfv"
+        android:text="Fecha de vencimiento"
+        style="@style/instruccion"/>
+    <EditText
+        android:maxLength="8"
+        android:id="@+id/fv"
+        android:hint="AAAAMMDD"
+        style="@style/datos"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <Button
+            style="@style/botones"
+            android:id="@+id/regresar"
+            android:text="Regresar"
+            android:layout_weight="1"
+            android:layout_gravity="bottom|center_horizontal" />
+
+        <Button
+            style="@style/botones"
+            android:id="@+id/generar"
+            android:text="Generar"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+</LinearLayout>
