@@ -7,11 +7,15 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.testfairy.TestFairy;
+
 public class InicioActivity extends Activity{
+    public static final String TESTFAIRY = "137419ed3f78f3964c2762bf3a1c3688116d736e";
     @Override
     protected void onStart() {
         super.onStart();
         setContentView(R.layout.activity_inicio);
+        TestFairy.begin(getApplicationContext(),TESTFAIRY);
         Intent guardado = getIntent();
         boolean mensaje = guardado.getBooleanExtra("guardado",false);
         if (mensaje){

@@ -25,6 +25,15 @@
         style="@style/spinner">
     </Spinner>
     <TextView
+        android:id="@+id/tformulario"
+        android:text="Ingrese solo el código de formulario"
+        style="@style/instruccion"/>
+    <EditText
+        android:maxLength="2"
+        android:id="@+id/formulario"
+        android:hint="2 digitos"
+        style="@style/datos"/>
+    <TextView
         android:id="@+id/tpv"
         android:text="Punto de venta"
         style="@style/instruccion"/>

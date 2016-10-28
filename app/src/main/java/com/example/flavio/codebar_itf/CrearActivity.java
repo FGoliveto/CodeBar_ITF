@@ -19,9 +19,8 @@ import java.util.Collections;
 
 public class CrearActivity extends Activity {
     private static final String[] TIPO_FORMULARIOS= {
-        "01 Factura A","06 Factura B","51 Factura M","91 Remito R","02 Notas de Debito A","03 Notas de Credito A",
-            "07 Notas de Debito B","08 Notas de Credito B","19 Facturas de Exportación","52 Notas de Debito M",
-            "53 Notas de Credito M","60 Liquido Producto A","61 Liquido Producto B",""
+        "01 Factura A","06 Factura B","91 Remito R","02 Notas de Debito A","03 Notas de Credito A",
+            "07 Notas de Debito B","08 Notas de Credito B","","Otro"
     };
     private static final int[] DIGITOS_DE_CADA_CAMPO={
         11,2,4,14,8,39
@@ -36,6 +35,8 @@ public class CrearActivity extends Activity {
     private EditText Epv;
     private EditText Ecai;
     private EditText Efv;
+    private EditText Eform;
+    private boolean bandera;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,15 +48,20 @@ public class CrearActivity extends Activity {
         TextView tres = (TextView)findViewById(R.id.tpv);
         TextView cuatro = (TextView)findViewById(R.id.tcai);
         TextView cinco = (TextView)findViewById(R.id.tfv);
+        final TextView seis = (TextView)findViewById(R.id.tformulario);
         uno.setTypeface(type);
         dos.setTypeface(type);
         tres.setTypeface(type);
         cuatro.setTypeface(type);
         cinco.setTypeface(type);
+        seis.setTypeface(type);
         Ecuit= (EditText) findViewById(R.id.cuit);
         Epv= (EditText) findViewById(R.id.pv);
         Ecai= (EditText) findViewById(R.id.cai);
         Efv= (EditText) findViewById(R.id.fv);
+        Eform = (EditText) findViewById(R.id.formulario);
+        seis.setVisibility(View.GONE);
+        Eform.setVisibility(View.GONE);
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
         ArrayList<String> formularios = new ArrayList<>();
         Collections.addAll(formularios, TIPO_FORMULARIOS);
@@ -67,8 +73,17 @@ public class CrearActivity extends Activity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 formulario = String.valueOf(parent.getItemAtPosition(position));
-                formulario = formulario.split(" ")[0];
-                Log.d("TAG",formulario);
+                if (formulario.contentEquals("Otro")){
+                    seis.setVisibility(View.VISIBLE);
+                    Eform.setVisibility(View.VISIBLE);
+                    bandera = true;
+                }else{
+                    formulario = formulario.split(" ")[0];
+                    Log.d("TAG",formulario);
+                    seis.setVisibility(View.GONE);
+                    Eform.setVisibility(View.GONE);
+                    bandera = false;
+                }
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -83,8 +98,16 @@ public class CrearActivity extends Activity {
                 }else{
                     Toast.makeText(getApplicationContext(),"Número de CUIT incorrecto",Toast.LENGTH_SHORT).show();
                 }
-                if (formulario.length()!=DIGITOS_DE_CADA_CAMPO[1]){
-                    Toast.makeText(getApplicationContext(),"Seleccionar tipo de formulario",Toast.LENGTH_SHORT).show();
+                if (bandera){
+                    if (Eform.getText().toString().length()==DIGITOS_DE_CADA_CAMPO[1]){
+                        formulario = Eform.getText().toString();
+                    }else{
+                        Toast.makeText(getApplicationContext(),"Número de formulario incorrecto",Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    if (formulario.length()!=DIGITOS_DE_CADA_CAMPO[1]){
+                        Toast.makeText(getApplicationContext(),"Seleccionar tipo de formulario",Toast.LENGTH_SHORT).show();
+                    }
                 }
                 if (Epv.getText().toString().length()==DIGITOS_DE_CADA_CAMPO[2]){
                     pv= Epv.getText().toString();
